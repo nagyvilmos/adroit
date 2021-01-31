@@ -1,0 +1,19 @@
+{
+    "name": "adroit-test-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "start": "parcel --port 4545 index.html --open",
+        "build": "parcel build index.html"
+    },
+    "dependencies": {
+        "@babel/cli": "^7.12.10",
+        "@babel/plugin-transform-react-jsx": "^7.12.12"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.2.0",
+        "parcel-bundler": "^1.6.1"
+    },
+    "keywords": []
+}
