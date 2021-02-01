@@ -7,16 +7,69 @@ const appendChild = (parent, child) => {
 		)
 }
 
+const buildCssBlock = (prefix, struct) => {
+    const tag = prefix.startsWith("&")
+    ? prefix.substr(1) // tag
+    : prefix.startsWith("#")
+        ? prefix        // id
+        : `.${prefix}`; // class
+    const styles = [""];
+
+    Object.entries(struct).forEach(([key, value]) =>
+    {
+        if (typeof value === "string")
+        {
+            styles[0] += `${key.replaceAll(/[A-Z]/g,x => "-" + x.toLowerCase())}: ${value};`
+            console.debug({key, value, style: styles[0]})
+        }
+        else
+        {
+            styles.push(...(buildCssBlock(key, value).map(style => `${tag} ${style}`)));
+        }
+    });
+
+    console.log({[prefix]:styles});
+    if (!styles[0])
+    {
+        return styles.filter((s,i) => i>0);   
+    }
+
+    styles[0] = `${tag} \{${styles[0]}}`;
+    return styles;
+}
+
+const buildCss = (struct) => {
+    const styles = [];
+    Object.entries(struct).forEach(([k,v]) => {
+        styles.push(...buildCssBlock(k,v));
+    });
+    console.log({buildCss:styles});
+    return styles.join("");
+}
+
 export default (tag, props, ...children) => {
-	console.debug({tag,props,children, type: typeof tag});
 	if (typeof tag === "function") {
 		return tag(props, children);
-	}
+    }
 	console.debug({tag,props,children});
 
 	const element = document.createElement(tag);
 
-	Object.entries(props || {}).forEach(([name, value]) => {
+    if (tag === "style")
+    {
+        // all css is scoped
+
+        element.toggleAttribute("scoped");
+        // turn the props into html body:
+        const style = children
+            .map(c => buildCss(c))
+            .join(" ");
+        console.debug({style});
+        element.innerHTML = style;
+        return element;
+    }
+
+    Object.entries(props || {}).forEach(([name, value]) => {
 		if (name.startsWith('on') && name.toLowerCase() in window) {
 			//element.addEventListener(name.toLowerCase().substr(2), value);
 		}
