@@ -38,8 +38,7 @@ export const styles = (config) => {
     // the returned collection is all the class names so {bobby: ".bobby-234"}
     const classNames = {};
 
-    const appCss = applicationStyles.textContent || "";
-    const classSuffix = `-${appCss.length}`;
+    const classSuffix = `-${Math.random().toString(36).substr(2, 6)}`;
 
     const styles = [];
     Object.entries(config).forEach(([k,v]) => {
@@ -50,6 +49,7 @@ export const styles = (config) => {
 
     console.log({styles, classNames});
 
+    const appCss = applicationStyles.textContent || "";
     applicationStyles.textContent = appCss
         ? [appCss, ...styles].join(" ")
         : styles.join(" ");
