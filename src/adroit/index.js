@@ -1,4 +1,5 @@
 import { getState } from "./context";
+import { buildCssBlock, styles } from "./styles";
 
 const extendProps = (props) => {
     const {context} = props || {};
@@ -18,37 +19,6 @@ const appendChild = (parent, child) => {
 		)
 }
 
-const buildCssBlock = (prefix, struct) => {
-    const tag = prefix.startsWith("&")
-    ? prefix.substr(1) // tag
-    : prefix.startsWith("#")
-        ? prefix        // id
-        : `.${prefix}`; // class
-    const styles = [""];
-
-    Object.entries(struct).forEach(([key, value]) =>
-    {
-        if (typeof value === "string")
-        {
-            styles[0] += `${key.replaceAll(/[A-Z]/g,x => "-" + x.toLowerCase())}: ${value};`
-            console.debug({key, value, style: styles[0]})
-        }
-        else
-        {
-            styles.push(...(buildCssBlock(key, value).map(style => `${tag} ${style}`)));
-        }
-    });
-
-    console.log({[prefix]:styles});
-    if (!styles[0])
-    {
-        return styles.filter((s,i) => i>0);   
-    }
-
-    styles[0] = `${tag} \{${styles[0]}}`;
-    return styles;
-}
-
 const buildCss = (struct) => {
     const styles = [];
     Object.entries(struct).forEach(([k,v]) => {
@@ -61,7 +31,7 @@ export const fragment = (props, ...children) => {
     return children;
 };
 
-export default (tag, props, ...children) => {
+const adroit = (tag, props, ...children) => {
 	if (typeof tag === "function") {
 		return tag(extendProps(props), children);
     }
@@ -103,3 +73,6 @@ export default (tag, props, ...children) => {
 
 	return element;
 }
+
+export { styles }
+export default adroit;
