@@ -1,3 +1,14 @@
+import { getState } from "./context";
+
+const extendProps = (props) => {
+    const {context} = props || {};
+    if (!context)
+    {
+        return props || {};
+    }
+    return {...props, state: getState(context)};
+}
+
 const appendChild = (parent, child) => {
 	if (Array.isArray(child))
 		child.forEach((nestedChild) => appendChild(parent, nestedChild))
@@ -46,10 +57,13 @@ const buildCss = (struct) => {
     console.log({buildCss:styles});
     return styles.join("");
 }
+export const fragment = (props, ...children) => {
+    return children;
+};
 
 export default (tag, props, ...children) => {
 	if (typeof tag === "function") {
-		return tag(props, children);
+		return tag(extendProps(props), children);
     }
 	console.debug({tag,props,children});
 
@@ -69,14 +83,18 @@ export default (tag, props, ...children) => {
         return element;
     }
 
-    Object.entries(props || {}).forEach(([name, value]) => {
+    Object.entries(extendProps(props)).forEach(([name, value]) => {
 		if (name.startsWith('on') && name.toLowerCase() in window) {
 			//element.addEventListener(name.toLowerCase().substr(2), value);
 		}
-		else
-		{
-			element.setAttribute(name, value.toString());
-		}
+        else
+        {
+            if (name === "context")
+            {
+                element.setAttribute("state", getContext(value));
+            }
+            element.setAttribute(name, value.toString());
+        }
 	})
 
 	children.forEach((child) => {

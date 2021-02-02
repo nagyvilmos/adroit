@@ -2,7 +2,7 @@
     "plugins": [
       ["@babel/plugin-transform-react-jsx", {
         "pragma": "adroit",
-        "pragmaFrag": "fragment"
+        "pragmaFrag": "adroit.fragment"
       }]
     ],
     "comments": false
