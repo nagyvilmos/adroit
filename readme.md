@@ -23,8 +23,26 @@ export default (props) => {
 };
 ```
 
-***Adroit*** supports jsx style css objects. [add more]
+***Adroit*** supports jsx in code styles.
 
+A style block can be added to any component, or scoped styles using the `style` function.
+
+```
+import adroit, {styles} from "adroit";
+
+const classes = styles({
+    special: {
+        [...]
+    }
+})
+export default (props) => {
+    return (<div class={classes.special}>
+        [...]
+    </div>
+};
+```
+
+The classes that are defined at this level are mapped to special
 ## Component level context
 
 ## Action & Reducer model

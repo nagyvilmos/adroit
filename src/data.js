@@ -1,17 +1,37 @@
 // data.js
   
 export default {
-    films: [
+    film: {
+      list: [
         {
             id:0,
             title: "Dr No",
             year: 1962,
-            staring:['Sean Connery', 'Ursula Andress', 'Joseph Wiseman', 'Bernard Lee', 'Jack Lord',
+            cast:['Sean Connery', 'Ursula Andress', 'Joseph Wiseman', 'Bernard Lee', 'Jack Lord',
                  'Lois Maxwell', 'Zena Marshall', 'Eunice Gayson'],
             poster: "https://www.007.com/wp-content/uploads/2020/08/DRNO-1.jpg"
+        },
+        {
+          id:1,
+          title: "From Russia With Love",
+          year: 1963,
+          cast:['Sean Connery', 'Daniela Bianchi', 'Pedro Armendariz', 'Lotte Lenya', 'Robert Shaw',
+            'Bernard Lee', 'Eunice Gayson', 'Lois Maxwell', 'Desmond Llewelyn'],
+          poster: "https://www.007.com/wp-content/uploads/2020/08/FRWL-1.jpg",
+          info: "SPECTRE has hatched a plan to steal a decoder that will access Russian state secrets and irrevocably unbalance the world order. It is up to 007 (Sean Connery) to seize the device, but he must confront enemies that include Red Grant (Robert Shaw) and former KGB agent Rosa Klebb (Lotte Lenya). Even as Bond romances a Soviet defector (Daniela Bianchi), he realises he is being lured into a deadly trap and will need all of his abilities to triumph over the forces that seek to destroy him."
+        },
+        {
+          id:3,
+          title: "Goldfinger",
+          year: 1964,
+          cast: ['Sean Connery', 'Gert Fröbe', 'Honor Blackman', 'Shirley Eaton', 'Lois Maxwell',
+            'Bernard Lee', 'Cec Linder', 'Desmond Llewelyn'],
+          poster: "https://www.007.com/wp-content/uploads/2020/08/GF-1.jpg",
+          info: "From the opening bomb blast outside a nightclub to a last-minute escape from the President’s personal jet, James Bond’s third screen adventure is an exhilarating, pulse-pounding thrill-ride. Sean Connery takes command as 007 and faces off with a maniacal villain bent on destroying all the gold in Fort Knox – and obliterating the world economy."
+
         }
-    ],
-    
+     ],
+    },
     hair:[
     {
       id: 1,

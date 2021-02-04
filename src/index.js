@@ -1,23 +1,53 @@
 // Create the HTML elements needed for a card
 import adroit from "./adroit";
+import data from "./data";
 import App from "./App";
 import launch from "./adroit/launch";
-import { initialContext } from "./adroit/context"
-// const app = (<div>
-//         <h1>head bar and stuff</h1>
-//         <h2>and more n more</h2>
-//         <p>lorum ipsum herre we go</p>
-//     </div>
-// );
+import { createController, loadContext } from "./adroit/context"
 
-initialContext({
-    default: {
-        dummy: {
-            count: 12
+const context = {
+    default: data,
+}
+
+
+const filterController = createController(
+    {
+        setFilm: (film) => {
+            return {
+                film
+            }
         }
+    },
+    (state, action) => {
+        switch (action.type)
+        {
+            case "setFilm":
+                return {
+                    ...state,
+                    film: action.film
+                }
+        }
+        return "film"; //go up the chain
     }
+)
+
+const filmController = createController(
+    {},
+    (state, action)=> {
+        return undefined;
+    },
+    {filter: filterController}
+);
+
+const controller = {
+    film: filmController
+}
+
+loadContext({
+    context,
+    controller
 });
-const app = (<App context ="dummy"/>);
-console.log({app})
+
+const app = (<App/>);
 launch(app);
 //launch();

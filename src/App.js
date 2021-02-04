@@ -1,26 +1,22 @@
 import adroit, {styles} from "./adroit";
-
+import Films from "./Films";
 const classes = styles({
-    special: {
-        "&p": {
-            fontSize: "150%",
-            border: "2px solid red"
-        }
-    },
-    clever: {
-        fontSize: "75%",
-        border: "1px solid blue"
+    app: {
+        minWidth: "40%",
+        maxWidth: "60%",
+        marginTop: "16px",
+        marginLeft: "auto",
+        marginRight: "auto",
+        border: "4px solid grey",
+        borderRadius:"8px",
+        padding: "16px",
     }
 });
-console.log(classes);
+
 export default (props) => {
     const {state} = props;
-    return (<div>
-        <h1>head bar and stuff</h1>
-        <h2>and more n more</h2>
-        <div class={classes.special}>
-            <p >lorum ipsum here we go again</p>
-        </div>
-        <p class={classes.clever}>The current count is {state.count || 'not set'}</p>
+    return (<div class={classes.app}>
+        <h1>Films</h1>
+        <Films context="film" />
     </div>);
 };

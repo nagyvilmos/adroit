@@ -1,4 +1,3 @@
-import {style} from ".";
 import adroit from ".";
 import { styles } from "./styles";
 

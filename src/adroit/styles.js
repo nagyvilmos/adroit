@@ -14,7 +14,6 @@ const buildCssBlock = (prefix, struct) => {
         if (typeof value === "string")
         {
             styles[0] += `${key.replaceAll(/[A-Z]/g,x => "-" + x.toLowerCase())}: ${value};`
-            console.debug({key, value, style: styles[0]})
         }
         else
         {
@@ -22,7 +21,6 @@ const buildCssBlock = (prefix, struct) => {
         }
     });
 
-    console.log({[prefix]:styles});
     if (!styles[0])
     {
         return styles.filter((s,i) => i>0);   
@@ -46,8 +44,6 @@ export const styles = (config) => {
         classNames[k] = mappedClass;
         styles.push(...buildCssBlock(mappedClass, v));
     });
-
-    console.log({styles, classNames});
 
     const appCss = applicationStyles.textContent || "";
     applicationStyles.textContent = appCss
