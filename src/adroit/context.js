@@ -1,5 +1,5 @@
 /*
-The context is a tree object that can be read but should never altered.
+The context is a tree object that can be read but should never be altered.
 The controller provides a mechanism to amend the context.
 Each controller is an object:
     {
@@ -81,12 +81,13 @@ const getReducer = (reducerName) => {
 
 const getState = (context) => {
     if (typeof context !== "string") {
-        return context.map(getContext(ctx.context));
+        return context.map(getState(context.context));
     }
     let ret = _context;
     context.split(".").forEach(k => {
         ret = ret[k] || {}; 
     })
+    console.debug({context,ret})
     return ret;
 }
 
@@ -195,7 +196,7 @@ const reduce = (contextName, action) => {
         console.debug({cb,element});
         if (element)
         {
-            const newElement = cb.tag(cb.props, cb.children)
+            const newElement = cb.tag(extendProps(cb.props), cb.children)
             newElement.id = cb.id;
             element.parentNode.replaceChild(newElement, element);
         }
@@ -221,9 +222,11 @@ const registerCallBack = (tag, props,children) => {
 
 const setState = (context, stateName, newState) => {
     const [subContext, subName] = splitPath(stateName);
+    console.debug({subContext, subName, newState})
     if (!subName)
     {
         context[subContext] = newState;
+        console.debug({stateName,context})
         return;
     }
     if (!context[subContext])
@@ -231,6 +234,7 @@ const setState = (context, stateName, newState) => {
         context[subContext] = {};
     }
     setState(context[subContext], subName, newState)
+    console.debug({stateName,context})
 }
 
 const splitPath = (path, first = true) => {

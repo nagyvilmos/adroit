@@ -17,12 +17,12 @@ const classes = styles({
 
 export default (props) => {
     const { state } = props;
-
+    console.log({state})
     return (<div class={classes.root}>
         <input 
             class={classes.filter}
             type="text"
-            onInput={(ev) => action("film.filter.setFilm", ev.target.value)}
+            onInput={(ev) => action("films.filter.setFilm", ev.target.value)}
             initialValue={state?.film}
             placeholder="Film name"
         />

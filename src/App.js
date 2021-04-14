@@ -17,6 +17,6 @@ export default (props) => {
     const {state} = props;
     return (<div class={classes.app}>
         <h1>Films</h1>
-        <Films context="film" />
+        <Films />
     </div>);
 };

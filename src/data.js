@@ -1,7 +1,7 @@
 // data.js
   
 export default {
-    film: {
+    films: {
       list: [
         {
             id:0,

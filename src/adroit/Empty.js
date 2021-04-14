@@ -51,7 +51,6 @@ export default (props, ...children) =>
                 <pre>    &lt;h1&gt;Heading&lt;/h1&gt;</pre>
                 <pre>&lt;/div&gt;)</pre>
             </div>
-            <p>Then [what ever next]</p>
             <p class={classes.footer}><small><em>{props.date}</em></small></p>
         </div>
     </div>);

@@ -27,7 +27,8 @@ const buildCss = (struct) => {
     });
     return styles.join("");
 }
-export const fragment = (props, ...children) => {
+
+const fragment = (props, ...children) => {
     return children;
 };
 
@@ -68,5 +69,5 @@ const adroit = (tag, props, ...children) => {
 	return element;
 }
 
-export { styles, appendChild, action }
+export { action, appendChild, fragment, styles, }
 export default adroit;

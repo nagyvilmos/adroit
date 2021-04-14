@@ -35,4 +35,4 @@ export default (props) => {
         <img class={classes.poster} src={state.xposter}/>
         {state.info && <p class={classes.info}>{state.info}</p>}
     </div>);
-} 
+};

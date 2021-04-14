@@ -27,11 +27,11 @@ const filterController = createController(
                     film: action.film
                 }
         }
-        return "film"; //go up the chain
+        return "films"; //go up the chain
     }
 )
 
-const filmController = createController(
+const filmsController = createController(
     {},
     (state, action)=> {
         return undefined;
@@ -40,7 +40,7 @@ const filmController = createController(
 );
 
 const controller = {
-    film: filmController
+    films: filmsController
 }
 
 loadContext({
