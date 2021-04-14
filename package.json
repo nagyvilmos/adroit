@@ -5,6 +5,7 @@
     "main": "index.html",
     "scripts": {
         "start": "parcel --port 4545 index.html --open",
+        "test": "parcel --port 4545 test.html --open",
         "build": "parcel build index.html"
     },
     "dependencies": {
