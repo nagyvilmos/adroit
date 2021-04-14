@@ -1,4 +1,3 @@
-import adroit  from "./adroit";
-import launch from "./adroit/launch";
+import { launch } from "./adroit";
 
 launch();

@@ -1,9 +1,7 @@
 // Create the HTML elements needed for a card
-import adroit from "./adroit";
+import adroit, { createController, loadContext, launch } from "./adroit";
 import data from "./data";
 import App from "./App";
-import launch from "./adroit/launch";
-import { createController, loadContext } from "./adroit/context"
 
 const context = {
     default: data,
