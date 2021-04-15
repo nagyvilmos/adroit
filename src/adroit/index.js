@@ -1,3 +1,38 @@
+//#region Logging
+const logType = {
+    none:0,
+    debug:1,
+    info:2,
+    log:3,
+    warn:4,
+    error:5,
+}
+
+const _logset = {
+    _:logType.warn,
+    context:logType.info,
+    launcher:logType.debug,
+}
+
+const log =(source, level, ...message) => {
+    const reqLevel = (typeof level === "string" ? logType[level] : level) || logType.none
+    const logLevel = _logset[source] ?? _logset._ ?? logType.none;
+    if (logLevel<reqLevel)
+    {
+        return;
+    }
+    const func = [
+        undefined,
+        console.debug,
+        console.log,
+        console.log,
+        console.warn,
+        console.error,
+    ][reqLevel];
+
+    func && func({source, message});
+}
+//#endregion Logging
 
 //#region Main DOM
 const appendChild = (parent, child) => {
@@ -442,6 +477,7 @@ const Empty = (props) =>
 let _app = undefined;
 
 const launch = (app) =>{
+    log("launch", logType.debug, `launch adroit ${app ? "from" : "without"} config`)
     _app = app || (<Empty date={new Date()} />);
 
     var appBlock = document.getElementById("app");
