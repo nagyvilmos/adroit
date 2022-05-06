@@ -15,8 +15,11 @@ const classes = styles({
 
 export default (props) => {
     const {state} = props;
-    return (<div class={classes.app}>
+    console.debug("load");
+    const film = (<div id="films-db" class={classes.app}>
         <h1>Films</h1>
-        <Films />
+        <Films id="films-list" />
     </div>);
+    console.debug("done");
+    return film;
 };

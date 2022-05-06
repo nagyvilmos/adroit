@@ -41,16 +41,25 @@ const appendChild = (parent, child) => {
         return;
     }
 
-    if (Array.isArray(child))
+    if (!Array.isArray(child) && !child.nodeType)
     {
-		child.forEach((nestedChild) => appendChild(parent, nestedChild));
+        console.log(child);
     }
     else
-	{
-    	parent.appendChild(
-			child.nodeType ? child : document.createTextNode(child)
-        );
+    {
+        console.log({appendChild:{parent, child}});
     }
+    if (Array.isArray(child))
+    {
+        console.log("...add children")
+		return child.forEach((nestedChild) => appendChild(parent, nestedChild));
+    }
+
+    if (!child.nodeType)
+    {
+        return parent.appendChild(document.createTextNode(child));
+    }
+    parent.appendChild(child);
 }
 
 const buildCss = (struct) => {
@@ -66,10 +75,13 @@ const fragment = (props, ...children) => {
 };
 
 const adroit = (tag, props, ...children) => {
+    console.log({adroit:{tag,props,children}});
 	if (typeof tag === "function") {
         return registerCallBack(tag, props, ...children);
     }
-	const element = document.createElement(tag);
+
+    const current = props?.id ? document.getElementById(props.id) : undefined;
+	const element = (!current && current?.type === tag) ? current : document.createElement(tag);
 
     if (tag === "style")
     {
@@ -84,15 +96,18 @@ const adroit = (tag, props, ...children) => {
         return element;
     }
 
-    Object.entries(extendProps(props)).forEach(([name, value]) => {
-		if (name.startsWith('on') && name.toLowerCase() in window) {
-			element.addEventListener(name.toLowerCase().substr(2), value);
-		}
-        else if (value !== undefined)
-        {
-            element.setAttribute(name, value.toString());
-        }
-	})
+    if (props)
+    {
+        Object.entries(extendProps(props)).forEach(([name, value]) => {
+            if (name.startsWith('on') && name.toLowerCase() in window) {
+                element.addEventListener(name.toLowerCase().substr(2), value);
+            }
+            else if (value !== undefined)
+            {
+                element.setAttribute(name, value.toString());
+            }
+        });
+    }
 
 	children.forEach((child) => {
 		appendChild(element, child);
@@ -193,7 +208,7 @@ const getState = (context) => {
     context.split(".").forEach(k => {
         ret = ret[k] || {}; 
     })
-    console.debug({context,ret})
+    console.log({getState:{context,ret}})
     return ret;
 }
 

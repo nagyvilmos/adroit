@@ -8,6 +8,7 @@ export default (props) => {
         <FilmList context={{
             context: "films",
             map: (ctx) => {
+                console.debug({ctx})
                 return ctx.list; 
             }}}
         />

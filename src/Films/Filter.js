@@ -20,6 +20,7 @@ export default (props) => {
     console.log({state})
     return (<div class={classes.root}>
         <input 
+            id="filmName"
             class={classes.filter}
             type="text"
             onInput={(ev) => action("films.filter.setFilm", ev.target.value)}
